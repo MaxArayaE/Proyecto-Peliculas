@@ -1,2 +1,2 @@
 # Preguntas
-# Obviamente pongan sus preguntas aqui sapos qlos
+> Obviamente pongan sus preguntas aqui sapos qlos
