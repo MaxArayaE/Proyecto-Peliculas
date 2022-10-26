@@ -1,1 +1,3 @@
-#Aguante la garra blanca
+# Aguante la garra blanca
+
+'print("Hola garra blanca!")'
