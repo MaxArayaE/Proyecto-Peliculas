@@ -1,1 +1,1 @@
-#Aguante garra blanca
+#Aguante la garra blanca
