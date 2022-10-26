@@ -1,4 +1,2 @@
-# Aguante la garra blanca
-
-```print("Hola garra blanca!")```
-#Iquique tierra de campeones
+# Proyecto base de datos de Peliculas
+> INFO081, Profesora: Yasna Barrientos Martinez
