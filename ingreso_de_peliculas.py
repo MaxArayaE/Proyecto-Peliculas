@@ -31,6 +31,7 @@ def input_movie(generos_peliculas: dict) -> str:
 #   OJITO CON ESTA LINEA Y EL DE DONDE SACA LOS GENEROS, ESTO VA A
 #   CAMBIAR SI O SI.
 #
+#   TU MAI
                     print("Ese genero no esta en nuestra lista, ingresa uno "\
                             "ya este.")                    
                     user_input = input(question).capitalize()
