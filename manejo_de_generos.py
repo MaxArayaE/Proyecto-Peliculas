@@ -16,10 +16,12 @@ def main():
             original_csv_file = csv_file.read()
             csv_file.seek(0)
         with open("generos.csv", 'a') as csv_file:
-            if (original_csv_file[-2] == "\n"):
-                pass
+            if (original_csv_file[-1:] == "\n"):
+                input_as_string = input_genre()
+                csv_file.write(input_as_string)
             else:
-                pass
+                input_as_string = input_genre()
+                csv_file.write(f"\n{input_as_string}")
     else:
         with open("generos.csv", 'w') as csv_file:    
             pass

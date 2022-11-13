@@ -4,6 +4,9 @@ from ingreso_de_peliculas import *
 from funciones_directorios import *
 
 
+generos_peliculas = obtain_genres_list(True)
+
+
 def main():
     directories()
     already_exists = False
@@ -17,7 +20,7 @@ def main():
             original_csv_file = csv_file.read()
             csv_file.seek(0)
         with open("peliculas.csv", 'a') as csv_file:
-            if (original_csv_file[-2] == "\n"):
+            if (original_csv_file[-1:] == "\n"):
                 input_as_string = input_movie(generos_peliculas)
                 csv_file.write(input_as_string)
             else:
