@@ -55,3 +55,70 @@ def input_genre() -> str:
                 "\n----------------------------------------")
         else:
             return string_to_return
+
+
+def print_all_genres_v1() -> None:
+    matrix = obtain_matrix("generos.csv")
+    for i in matrix:
+        print(i)
+
+
+    print("\n -----------------------------------------\n")
+
+
+    currently_printing = ["\"General\"", "\"General\""]
+    print(currently_printing[0])
+    def recursive_print(matrix: list, level = 1) -> list:
+        matrix_of_things_to_remove = []
+        for i, lista in enumerate(matrix):
+            if (lista[1] == currently_printing[0]):
+                print('\t' * level, lista[0].strip('\"'))
+                matrix_of_things_to_remove.append(lista)
+        for lista in matrix_of_things_to_remove:
+            matrix.remove(lista) 
+        try:
+            currently_printing[0] = matrix[0][1]
+        except:
+            return
+        for i in matrix:
+            print(i)
+        return recursive_print(matrix)
+                      
+
+    recursive_print(matrix)
+
+
+def print_all_genres_v2() -> None:
+    matrix = obtain_matrix("generos.csv")
+    for i in matrix:
+        print(i)
+
+
+    print("\n -----------------------------------------\n")
+
+
+    currently_printing = ["\"General\"", "\"General\""]
+    print(currently_printing[0].strip('\"'))
+    def recursive_print(matrix: list, first_time = True, level = 1) -> list:
+        matrix_of_things_to_remove = []
+        for i, lista in enumerate(matrix):
+            if (lista[1] == currently_printing[0]):
+                print('\t' * level, lista[0].strip('\"'))
+                if (first_time):
+                    recursive_print(matrix, False, level + 1)
+                matrix_of_things_to_remove.append(lista)
+        for lista in matrix_of_things_to_remove:
+            matrix.remove(lista) 
+        try:
+            currently_printing[0] = matrix[0][1]
+        except:
+            return
+        # for i in matrix:
+        #     print(i)
+        return recursive_print(matrix)
+                      
+
+    recursive_print(matrix)
+
+
+print_all_genres_v2()
