@@ -24,14 +24,13 @@ def input_movie(title, director, genre, year, score, root) -> str:
     entry_error = tk.Toplevel(root) 
     entry_error.geometry("500x100")
     entry_error.title("Error!")
-
     all_user_input = ""
     list_to_validate = []
     genres_list = obtain_list("generos.csv", True)
 
     all_user_input = f'"{title}", "{director}", "{genre}", {year}, {score}'
     list_to_validate = [f'"{title}"', f'"{director}"']
-    
+    genre = f'"{genre.capitalize()}"'
     if genre not in genres_list:
         tk.Label(entry_error, text= ("El género no se encuentra en nuestra"
             " base de datos,\ndebe agregarlos previamente"),
@@ -52,6 +51,9 @@ def input_movie(title, director, genre, year, score, root) -> str:
         tk.Label(entry_error, text= "El par de películas y director ya están",
         font=(None, 20)).pack(padx=10, pady=20)
         return ""
+    entry_error.title("Omedeto")
+    tk.Label(entry_error, text= ("Su película se a ingresado\n correctamente"),
+        font=(None, 15)).pack(padx=10, pady=20)
 
     return all_user_input
 

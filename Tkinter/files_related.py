@@ -5,7 +5,7 @@ def obtain_matrix(file_to_read: str) -> list:
     ['"Genero0"', '"Genero Padre0"'], (...)
     En caso de usarse sobre "peliculas.csv" sería distinto.
     """
-    with open(file_to_read, 'r') as csv_file:
+    with open(file_to_read, 'r', encoding="utf-8") as csv_file:
         original_csv_file = csv_file.readlines()
         csv_file.seek(0) # Solo en caso de...
     for i, lista in enumerate(original_csv_file):
