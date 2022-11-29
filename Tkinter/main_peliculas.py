@@ -29,6 +29,3 @@ def main_peliculas(title, director, genre, year, score, root):
                 title, director, genre, year, score, root)
             csv_file.write(input_as_string)
            
-
-if __name__ == "__main__":
-    main_peliculas()
