@@ -4,7 +4,6 @@ from funciones import crea_lista_archivo
 from peliculas_related import *
 from main_peliculas import *
 import sys
-# coding=utf-8
 
 
 def root_generator():
@@ -263,8 +262,6 @@ def genres_menu(root_main):
     root.mainloop()
 
 
-
-
 def main():
     fuente_texto = "Courier"
 
@@ -340,7 +337,7 @@ def main():
         root, bd=3, height="40", relief="groove")
     frame_search.grid(row=3, column=2, columnspan=7, sticky="we")
 
-    buscador = tk.Entry(frame_search, font=(fuente_texto, 20), width=50)
+    buscador = tk.Entry(frame_search, font=(fuente_texto, 20), width=45)
     buscador.grid(row=0, column=1, sticky="ns")
     combo_title = "Título o director"
     combo_genre = "Género"
@@ -353,7 +350,7 @@ def main():
     buscador_combo.grid(row=0, column=0, sticky="w")
     button_search = tk.Button(frame_search, text="buscar", cursor="hand1")
     #owo
-    button_search.grid(row=0, column=1, sticky="e")
+    button_search.grid(row=0, column=2, sticky="e")
 
     #  Peliculas
     frame_movie = tk.Frame(root, bd="3", relief="groove")
