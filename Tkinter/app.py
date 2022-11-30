@@ -175,7 +175,6 @@ def movies_menu(root_main):
 def genres_menu(root_main):
 
 
-
     def temp_genre(event):
         if event.type == tk.EventType.FocusIn and genre_entry.get() == temp_genre_text:
             genre_entry.delete(0, "end")
@@ -199,12 +198,10 @@ def genres_menu(root_main):
     def back_main(event):
         root_main.deiconify()
         root.destroy()
-
-
-
-    
+ 
+    # Título pestaña
     root = root_generator()
-    root.title("Ingresar películas")
+    root.title("Ingresar géneros")
     root_main.withdraw()
     
     # Titulo de la ventana
@@ -262,19 +259,12 @@ def genres_menu(root_main):
     root.mainloop()
 
 
-def main():
-    fuente_texto = "Courier"
-
-
-    def genres_window(event):
-        #root.destroy()
-        genres_menu(root)
+def list_menu(root_main):
     
-
-    def movies_window(event):
-        movies_menu(root)
-        
     
+    def back_main(event):
+        root_main.deiconify()
+        root.destroy()
 
     def buscador_peliculas(event):
         texto_buscado = buscador.get().lower()
@@ -286,59 +276,46 @@ def main():
                 for i in movies_list:
                     if (i[0].lower().find(texto_buscado) != -1 or
                         i[1].lower().find(texto_buscado) != -1):
-                        text_area.insert(tk.END, f"{','.join(i)}\n")
+                        text_area.insert(tk.END, f"{', '.join(i)}\n")
 
             elif buscador_combo.get() == combo_genre:
                 for i in movies_list:
                     if (i[2].lower().find(texto_buscado) != -1 and
                         texto_buscado != "" and not texto_buscado.isspace()):
-                        text_area.insert(tk.END, f"{','.join(i)}\n")
+                        text_area.insert(tk.END, f"{', '.join(i)}\n")
             elif buscador_combo.get() == combo_score:
                 for i in movies_list:
                     print(i)
                     if (i[4].find(texto_buscado) != -1 and
                         texto_buscado != "" and not texto_buscado.isspace()):
-                        text_area.insert(tk.END, f"{','.join(i)}\n")
+                        text_area.insert(tk.END, f"{', '.join(i)}\n")
             text_area.config(state="disable")
         else:
             text_area.config(state="normal")
             text_area.delete(1.0, tk.END)
-            text_area.insert(tk.END, movies_text)
+            for i in movies_list:
+                text_area.insert(tk.END, f"{', '.join(i)}\n")
 
-    # Ventana Principal
-    
-
-    root = tk.Tk()
-    root.geometry("1080x720") # Tamaño de la ventana
-    icon = tk.PhotoImage(file="icon.png")
-    root.iconphoto(True, icon)
-    root.title("Fvck this is cine")
-    root.config(bg="pink")
-    root.config(cursor="heart")
-    root.columnconfigure([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], minsize=30, weight=10)
-    root.rowconfigure([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], minsize=10, weight=10)
-
-    with open("peliculas.csv", mode="r", encoding="utf-8") as movies_file:
-        movies_text = movies_file.read() #  lee archivo
+    movies_list_formated = crea_lista_archivo("peliculas.csv", ",")
     movies_list = crea_lista_archivo("peliculas.csv", ",")
-    print(movies_list)
 
-    #  Titulo
-    tk.Label(
-        root,
-        text="Bienvenido a Fvck this is cine\nLa aplicacion para buscar, "
-        "clasificar y puntuar\n tus películas favoritas\na continuacion haz "
-        "click en tu opción deseada",
-        bg="white",
-        font=("Arial", 20, "bold", "roman"), relief="groove", bd=3
-    ).grid(row=1, column=2, rowspan=1, columnspan=7, sticky="nsew")
+    root = root_generator()
+    root.title("Ingresar películas")
+    root_main.withdraw()
+    movies_list = crea_lista_archivo("peliculas.csv", ",")
+
     
-    #  Buscador
+    #  Botones
+    button1 = tk.Button(root, text="Volver atrás", cursor="hand1", height=2)
+    button1.grid(row=9, column=1, columnspan=2, sticky="sew")
+    
+   
+     #  Buscador
     frame_search = tk.Frame(
         root, bd=3, height="40", relief="groove")
     frame_search.grid(row=3, column=2, columnspan=7, sticky="we")
 
-    buscador = tk.Entry(frame_search, font=(fuente_texto, 20), width=45)
+    buscador = tk.Entry(frame_search, font=("Courrier", 20), width=45)
     buscador.grid(row=0, column=1, sticky="ns")
     combo_title = "Título o director"
     combo_genre = "Género"
@@ -350,7 +327,6 @@ def main():
     buscador_combo.current(0)
     buscador_combo.grid(row=0, column=0, sticky="w")
     button_search = tk.Button(frame_search, text="buscar", cursor="hand1")
-    #owo
     button_search.grid(row=0, column=2, sticky="e")
 
     #  Peliculas
@@ -360,24 +336,116 @@ def main():
     scroll_v.pack(side="right", fill="y")
     text_area = tk.Text(
         frame_movie, wrape=None, yscrollcommand=scroll_v.set,
-        font=(fuente_texto, 20), height=15
+        font=("Currier", 20), height=15
     )
-    text_area.insert(tk.END, movies_text)
+    for i in movies_list:
+        text_area.insert(tk.END, f"{', '.join(i)}\n")
+    
+    #text_area.insert(tk.END, movies_list_formated)
     text_area.pack(side="top", fill="x")
     scroll_v.config(command=text_area.yview)
     text_area.config(state="disabled")
 
-    #  Botones
-    button2 = tk.Button(root, text="Ingresar Películas", cursor="hand1")
-    button2.grid(row=9, column=8, columnspan= 2, sticky="nsew")
-    button1 = tk.Button(root, text="Ingresar Género", cursor="hand1", height=1)
-    button1.grid(row=9, column=1, columnspan=2, sticky="nsew")
-
-    #  Eventos
+     # Eventos
+    button1.bind("<Button-1>", back_main)
+    root.bind("<Escape>", close)
+    root.protocol("WM_DELETE_WINDOW", close)
     button_search.bind("<Button-1>", buscador_peliculas)
     buscador.bind("<Return>", buscador_peliculas)
+
+    
+    root.mainloop()
+
+def main():
+
+
+    def genres_window(event):
+        #root.destroy()
+        genres_menu(root)
+    
+
+    def movies_window(event):
+        movies_menu(root)
+
+
+    def list_window(event):
+        list_menu(root)
+
+# Optimizar esta wea xd owo
+
+    def in_button1(event):
+        button1.config(bg="grey")
+
+    
+    def out_button1(event):
+        button1.config(bg="gray90")
+    
+
+    def in_button2(event):
+        button2.config(bg="grey")
+
+    
+    def out_button2(event):
+        button2.config(bg="gray90")
+
+
+    def in_button3(event):
+        button3.config(bg="grey")
+
+    
+    def out_button3(event):
+        button3.config(bg="gray90")
+
+
+    # Ventana Principal
+    root = tk.Tk()
+    root.geometry("1080x720") # Tamaño de la ventana
+    icon = tk.PhotoImage(file="icon.png")
+    root.iconphoto(True, icon)
+    root.title("Fvck this is cine")
+    root.config(bg="pink")
+    root.config(cursor="heart")
+    root.columnconfigure([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], minsize=30, weight=10)
+    root.rowconfigure([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], minsize=10, weight=10)
+    
+   
+
+    #  Titulo
+    tk.Label(
+        root,
+        text="Bienvenido a Fvck this is cine\nLa aplicacion para buscar, "
+        "clasificar y puntuar\n tus películas favoritas\na continuacion haz "
+        "click en tu opción deseada",
+        bg="white",
+        font=("Arial", 20, "bold", "roman"), relief="groove", bd=3
+    ).grid(row=1, column=2, rowspan=1, columnspan=7, sticky="nsew")
+
+     # Imagen
+    imagen = tk.PhotoImage(file="esto es cine2.png")
+    img_lbl = tk.Label(root, image =imagen).grid(row=5, column=3, columnspan=5)
+
+      
+
+    #  Botones
+    button1 = tk.Button(root, text="Ingresar Género", cursor="hand1", height=1)
+    button1.grid(row=8, column=1, rowspan= 2,  columnspan=2, sticky="nsew")
+    button2 = tk.Button(root, text="Ingresar Películas", cursor="hand1")
+    button2.grid(row=8, column=8, rowspan= 2, columnspan= 2, sticky="nsew")
+    button3 = tk.Button(root, text="Lista de películas", cursor="hand1")
+    button3.grid(row=8, column=5, rowspan= 2, columnspan=1, sticky="nsew")
+
+    #  Eventos
     button1.bind("<Button-1>", genres_window)
     button2.bind("<Button-1>", movies_window)
+    button3.bind("<Button-1>", list_window)
+   
+   #optimizar esta wea owo
+    button1.bind("<Enter>", in_button1)
+    button1.bind("<Leave>", out_button1)
+    button2.bind("<Enter>", in_button2)
+    button2.bind("<Leave>", out_button2)
+    button3.bind("<Enter>", in_button3)
+    button3.bind("<Leave>", out_button3)
 
     root.bind("<Escape>", close)
     root.protocol("WM_DELETE_WINDOW", close)
