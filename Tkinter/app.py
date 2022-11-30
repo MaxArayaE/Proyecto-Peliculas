@@ -198,10 +198,10 @@ def genres_menu(root_main):
     def back_main(event):
         root_main.deiconify()
         root.destroy()
-
-
+ 
+    # Título pestaña
     root = root_generator()
-    root.title("Ingresar películas")
+    root.title("Ingresar géneros")
     root_main.withdraw()
     
     # Titulo de la ventana
@@ -371,6 +371,31 @@ def main():
     def list_window(event):
         list_menu(root)
 
+# Optimizar esta wea xd owo
+
+    def in_button1(event):
+        button1.config(bg="grey")
+
+    
+    def out_button1(event):
+        button1.config(bg="gray90")
+    
+
+    def in_button2(event):
+        button2.config(bg="grey")
+
+    
+    def out_button2(event):
+        button2.config(bg="gray90")
+
+
+    def in_button3(event):
+        button3.config(bg="grey")
+
+    
+    def out_button3(event):
+        button3.config(bg="gray90")
+
 
     # Ventana Principal
     root = tk.Tk()
@@ -382,6 +407,8 @@ def main():
     root.config(cursor="heart")
     root.columnconfigure([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], minsize=30, weight=10)
     root.rowconfigure([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], minsize=10, weight=10)
+    
+   
 
     #  Titulo
     tk.Label(
@@ -392,22 +419,33 @@ def main():
         bg="white",
         font=("Arial", 20, "bold", "roman"), relief="groove", bd=3
     ).grid(row=1, column=2, rowspan=1, columnspan=7, sticky="nsew")
-    
-   
-    
+
+     # Imagen
+    imagen = tk.PhotoImage(file="esto es cine2.png")
+    img_lbl = tk.Label(root, image =imagen).grid(row=5, column=3, columnspan=5)
+
+      
 
     #  Botones
-    button2 = tk.Button(root, text="Ingresar Películas", cursor="hand1")
-    button2.grid(row=9, column=8, columnspan= 2, sticky="nsew")
     button1 = tk.Button(root, text="Ingresar Género", cursor="hand1", height=1)
-    button1.grid(row=9, column=1, columnspan=2, sticky="nsew")
+    button1.grid(row=8, column=1, rowspan= 2,  columnspan=2, sticky="nsew")
+    button2 = tk.Button(root, text="Ingresar Películas", cursor="hand1")
+    button2.grid(row=8, column=8, rowspan= 2, columnspan= 2, sticky="nsew")
     button3 = tk.Button(root, text="Lista de películas", cursor="hand1")
-    button3.grid(row=9, column=5, columnspan=1, sticky="nsew")
+    button3.grid(row=8, column=5, rowspan= 2, columnspan=1, sticky="nsew")
 
     #  Eventos
     button1.bind("<Button-1>", genres_window)
     button2.bind("<Button-1>", movies_window)
     button3.bind("<Button-1>", list_window)
+   
+   #optimizar esta wea owo
+    button1.bind("<Enter>", in_button1)
+    button1.bind("<Leave>", out_button1)
+    button2.bind("<Enter>", in_button2)
+    button2.bind("<Leave>", out_button2)
+    button3.bind("<Enter>", in_button3)
+    button3.bind("<Leave>", out_button3)
 
     root.bind("<Escape>", close)
     root.protocol("WM_DELETE_WINDOW", close)
