@@ -1,2 +1,6 @@
+def in_button(event):
+    event.type.config(bg="grey")
 
-button2.grid(row=4, column=4, columnspan=5, sticky="nsew" )
+    
+def out_button(event):
+    event.type.config(bg="white")

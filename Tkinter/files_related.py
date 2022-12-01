@@ -46,4 +46,10 @@ def list_strip_double_quotes(any_list: list) -> None:
     """
     for i, elemento in enumerate(any_list):
         any_list[i] = elemento.strip('\"')
-    
+
+
+
+
+
+
+obtain_list("generos.csv", True)

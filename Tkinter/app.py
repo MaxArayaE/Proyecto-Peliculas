@@ -101,6 +101,18 @@ def movies_menu(root_main):
             font=(None, 15)).pack(padx=10, pady=20)
 
 
+    def in_button1(event):
+        if event.type == tk.EventType.Enter:
+            button1.config(bg="grey")
+        else:
+             button1.config(bg="grey90")
+
+
+    def in_button2(event):
+        if event.type == tk.EventType.Enter:
+            button2.config(bg="grey")
+        else:
+             button2.config(bg="grey90")
 
 
     root = root_generator()
@@ -124,20 +136,33 @@ def movies_menu(root_main):
     director_entry.insert(0, temp_director_text)
 
     # Genero
+    genre_comentary = tk.Label(
+        root, text="*El genero debe estar en la base de datos", 
+        font=(None, 10),fg="Black", bg="pink"
+        ).grid(row=5, column=1, columnspan=4, sticky= "sw",)
     genre_entry = tk.Entry(root, width=40, font=(None, 25), fg="gray")
     genre_entry.grid(row=5, column=1, columnspan=7, rowspan=1, sticky="w")
     temp_genre_text = "Ingrese el Género de la película aquí"
     genre_entry.insert(0, temp_genre_text)
 
     # Año
-    year_entry = tk.Entry(root, width=30, font=(None, 25), fg="gray")
-    year_entry.grid(row=7, column=1, columnspan=4, rowspan=1, sticky="w")
+    year_comentary = tk.Label(
+        root, text="*El año debe ser mayor o igual a 1895 ", font=(None, 10),
+        fg="Black", bg="pink"
+        ).grid(row=7, column=1, columnspan=4, sticky= "sw",)
+
+    year_entry = tk.Entry(root, width=30, font=(None, 25), fg="gray", )
+    year_entry.grid(row=7, column=1, columnspan=4, sticky="w")
     temp_year_text = "Ingrese el año de la película aquí"
     year_entry.insert(0, temp_year_text)
-
+   
     # Valoracion
+    score_comentary = tk.Label(
+        root, text="*La valoración debe ser entre 1 y 5", font=(None, 10),
+        fg="Black", bg="pink"
+        ).grid(row=7, column=6, columnspan=4, sticky= "sw",)
     score_entry = tk.Entry(root, width=30, font=(None, 25), fg="gray")
-    score_entry.grid(row=7, column=5, columnspan=4, rowspan=1, sticky="e")
+    score_entry.grid(row=7, column=6, columnspan=4, rowspan=1, sticky="e")
     temp_score_text = "Ingrese la valoración de la película aquí"
     score_entry.insert(0, temp_score_text)
 
@@ -165,6 +190,10 @@ def movies_menu(root_main):
 
     button1.bind("<Button-1>", back_main)
     button2.bind("<Button-1>", confirmar)
+    button1.bind("<Enter>", in_button1)
+    button1.bind("<Leave>", in_button1)
+    button2.bind("<Enter>", in_button2)
+    button2.bind("<Leave>", in_button2)
 
     root.bind("<Escape>", close)
     root.protocol("WM_DELETE_WINDOW", close)
@@ -198,7 +227,22 @@ def genres_menu(root_main):
     def back_main(event):
         root_main.deiconify()
         root.destroy()
- 
+
+
+    def in_button1(event):
+        if event.type == tk.EventType.Enter:
+            button1.config(bg="grey")
+        else:
+             button1.config(bg="grey90")
+
+
+    def in_button2(event):
+        if event.type == tk.EventType.Enter:
+            button2.config(bg="grey")
+        else:
+             button2.config(bg="grey90")
+
+
     # Título pestaña
     root = root_generator()
     root.title("Ingresar géneros")
@@ -230,6 +274,9 @@ def genres_menu(root_main):
     genre_entry.insert(0, temp_genre_text)
 
     # Genero Padre
+    genre_comentary2 = tk.Label(root, text="*Si no especifica género padre, se"
+        " asignará automaticamente en general", font=(None, 10),fg="Black",
+        bg="pink").grid(row=8, column=2, columnspan=4, sticky= "nw",)
     year_entry = tk.Entry(root, width=50, font=(None, 25), fg="gray")
     year_entry.grid(row=7, column=2, columnspan=7, rowspan=1, sticky="w")
     temp_year_text = "(opcional) Ingrese el Género Padre"
@@ -250,8 +297,11 @@ def genres_menu(root_main):
     year_entry.bind("<FocusIn>", temp_year)
     year_entry.bind("<FocusOut>", temp_year)
 
-
     button1.bind("<Button-1>", back_main)
+    button1.bind("<Enter>", in_button1)
+    button1.bind("<Leave>", in_button1)
+    button2.bind("<Enter>", in_button2)
+    button2.bind("<Leave>", in_button2)
 
     root.bind("<Escape>", close)
     root.protocol("WM_DELETE_WINDOW", close)
@@ -371,30 +421,26 @@ def main():
     def list_window(event):
         list_menu(root)
 
-# Optimizar esta wea xd owo
 
     def in_button1(event):
-        button1.config(bg="grey")
+        if event.type == tk.EventType.Enter:
+            button1.config(bg="grey")
+        else:
+             button1.config(bg="grey90")
 
-    
-    def out_button1(event):
-        button1.config(bg="gray90")
-    
 
     def in_button2(event):
-        button2.config(bg="grey")
+        if event.type == tk.EventType.Enter:
+            button2.config(bg="grey")
+        else:
+             button2.config(bg="grey90")
 
-    
-    def out_button2(event):
-        button2.config(bg="gray90")
-
-
+ 
     def in_button3(event):
-        button3.config(bg="grey")
-
-    
-    def out_button3(event):
-        button3.config(bg="gray90")
+        if event.type == tk.EventType.Enter:
+            button3.config(bg="grey")
+        else:
+             button3.config(bg="grey90")
 
 
     # Ventana Principal
@@ -421,8 +467,8 @@ def main():
     ).grid(row=1, column=2, rowspan=1, columnspan=7, sticky="nsew")
 
      # Imagen
-    imagen = tk.PhotoImage(file="esto es cine2.png")
-    img_lbl = tk.Label(root, image =imagen).grid(row=5, column=3, columnspan=5)
+    imagen_main = tk.PhotoImage(file="esto es cine2.png")
+    img_lbl = tk.Label(root, image =imagen_main).grid(row=5, column=3, columnspan=5)
 
       
 
@@ -438,14 +484,12 @@ def main():
     button1.bind("<Button-1>", genres_window)
     button2.bind("<Button-1>", movies_window)
     button3.bind("<Button-1>", list_window)
-   
-   #optimizar esta wea owo
     button1.bind("<Enter>", in_button1)
-    button1.bind("<Leave>", out_button1)
+    button1.bind("<Leave>", in_button1)
     button2.bind("<Enter>", in_button2)
-    button2.bind("<Leave>", out_button2)
+    button2.bind("<Leave>", in_button2)
     button3.bind("<Enter>", in_button3)
-    button3.bind("<Leave>", out_button3)
+    button3.bind("<Leave>", in_button3)
 
     root.bind("<Escape>", close)
     root.protocol("WM_DELETE_WINDOW", close)
@@ -456,3 +500,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+"""
+5. Ingresar generos 
+6. Imprimir generos
+ """

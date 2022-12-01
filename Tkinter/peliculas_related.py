@@ -20,40 +20,61 @@ def equal_movie_and_director_exists(list_to_validate: list) -> bool:
 
 
 def input_movie(title, director, genre, year, score, root) -> str:
-
-    entry_error = tk.Toplevel(root) 
+    entry_error = tk.Toplevel(root)
     entry_error.geometry("500x100")
     entry_error.title("Error!")
-    all_user_input = ""
+    title = title.capitalize()
+    director = director.title()
     list_to_validate = []
     genres_list = obtain_list("generos.csv", True)
+    for i in range(len(genres_list)):
+        genres_list[i] = genres_list[i].lower()
+    print(genres_list)
+        
 
-    all_user_input = f'"{title}", "{director}", "{genre}", {year}, {score}'
+    
     list_to_validate = [f'"{title}"', f'"{director}"']
-    genre = f'"{genre.capitalize()}"'
-    if genre not in genres_list:
+    genre_aux = f'"{genre.lower()}"'
+    if genre_aux not in genres_list:
         tk.Label(entry_error, text= ("El género no se encuentra en nuestra"
             " base de datos,\ndebe agregarlos previamente"),
         font=(None, 15)).pack(padx=10, pady=20)
         return ""
 
-    if int(year) < 1895:
-        tk.Label(entry_error, text= ("El año debe ser mayor o igual a 1895"),
-        font=(None, 15)).pack(padx=10, pady=20)
-        return ""
+    genre = genre.capitalize()
+    try:
+        if int(year) < 1895:
+            tk.Label(entry_error, text= ("El año debe ser mayor o igual a 1895"),
+            font=(None, 15)).pack(padx=10, pady=20)
+            return ""
+    except:
+        tk.Label(entry_error, text= ("El año debe ser un valor entero"),
+            font=(None, 15)).pack(padx=10, pady=20)
+        return "" 
+    try:
 
-    if int(score) < 1 or int(score) > 5:
-        tk.Label(entry_error, text= ("La valoración debe ser entre 1 y 5"),
-        font=(None, 15)).pack(padx=10, pady=20)
-        return ""
-
+        if int(score) < 1 or int(score) > 5:
+            tk.Label(entry_error, text= ("La valoración debe ser entre 1 y 5"),
+            font=(None, 15)).pack(padx=10, pady=20)
+            return ""
+    except:
+        tk.Label(entry_error, text= ("La valoracion debe ser un número entero"),
+            font=(None, 15)).pack(padx=10, pady=20)
+        return "" 
     if (equal_movie_and_director_exists(list_to_validate)):
         tk.Label(entry_error, text= "El par de películas y director ya están",
         font=(None, 20)).pack(padx=10, pady=20)
         return ""
+    
+
+   
+    
+    
     entry_error.title("Omedeto")
     tk.Label(entry_error, text= ("Su película se a ingresado\n correctamente"),
         font=(None, 15)).pack(padx=10, pady=20)
+
+    all_user_input = f'"{title}", "{director}", "{genre}", {year}, {score}'
 
     return all_user_input
 
