@@ -1,7 +1,7 @@
-def crea_lista_archivo(archivo: str, separador) -> list:
+def crea_lista_archivo(archivo: str, separador: str) -> list:
     """
-    lee un archivo en formato 'txt' y lo retorna en forma de lista,
-    separados por lineas y por un caracter (el caracter es opcional)
+    lee un archivo en formato 'txt' o 'csv' y lo retorna en forma de lista,
+    separados por lineas y por un caracter
     """
     archivo = open(archivo, 'r', encoding="utf-8").read().split('\n')
     lista = []

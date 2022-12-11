@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from funciones import crea_lista_archivo
+from funciones import *
 from main_peliculas import *
 from main_generos import *
 from generos_related import *
@@ -176,7 +176,7 @@ def movies_menu(root_main):
 
     # Genero
     tk.Label(
-        root, text="*El genero debe estar en la base de datos", 
+        root, text="*El género debe estar en la base de datos", 
         font=(None, 10),fg="Black", bg="pink"
         ).grid(row=5, column=1, columnspan=4, sticky= "sw",)
     genre_entry = tk.Entry(root, width=40, font=(None, 25), fg="gray")
@@ -303,6 +303,26 @@ def genres_menu(root_main):
              button2.config(bg="grey90")
 
 
+    def recursive_print(matrix: list, genre_to_print: str,
+                        tab_depth = 1) -> None:           
+        for genre in matrix:
+            if (genre[1] == genre_to_print):
+                text_area.config(state="normal")
+                aux = genre[0].strip('\"')
+                aux_tab = "\t" * tab_depth
+                text_area.insert(tk.END, f"{aux_tab + aux}\n")
+                recursive_print(matrix, genre[0], tab_depth + 1)
+        text_area.config(state="disable")
+
+
+    def reload_genre_list():
+        text_area.config(state="normal")
+        text_area.delete(1.0, tk.END)
+        matrix = obtain_matrix("generos.csv")
+        text_area.insert(tk.END, "General\n")     
+        recursive_print(matrix, "\"General\"")
+
+
     def confirmar(event):
         """
         Valida si se ingreso texto en todas las casillas, si es así, 
@@ -323,17 +343,13 @@ def genres_menu(root_main):
             entry_error.title("Error!")
             tk.Label(entry_error, text= "Ingrese un género válido",
             font=(None, 15)).pack(padx=10, pady=20)
+        reload_genre_list()
 
 
-    def recursive_print(matrix: list, genre_to_print: str,
-                        tab_depth = 1) -> None:
-        for genre in matrix:
-            if (genre[1] == genre_to_print):
-                aux = genre[0].strip('\"')
-                aux_tab = "\t" * tab_depth
-                text_area.insert(tk.END, f"{aux_tab + aux}\n")
-                recursive_print(matrix, genre[0], tab_depth + 1)
-                
+    
+    
+
+    
         
 
     # Título pestaña
@@ -352,11 +368,11 @@ def genres_menu(root_main):
     scroll_v.pack(side="right", fill="y")
     text_area = tk.Text(
         frame_genre, wrape=None, yscrollcommand=scroll_v.set,
-        font=(None, 15), height=10
+        font=(None, 18), height=15
     )
-    text_area.pack(side="top", fill="x")
+    text_area.pack(expand="true", fill="both")
     scroll_v.config(command=text_area.yview)
-    text_area.config(state="normal")
+
 
     matrix = obtain_matrix("generos.csv")
     text_area.insert(tk.END, "General\n")     
@@ -490,7 +506,7 @@ def list_menu(root_main):
     for i in movies_list:
         text_area.insert(tk.END, f"{', '.join(i)}\n")
     
-    text_area.pack(side="top", fill="x")
+    text_area.pack(expand="true", fill="both")
     scroll_v.config(command=text_area.yview)
     text_area.config(state="disabled")
 
