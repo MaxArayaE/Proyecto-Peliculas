@@ -7,13 +7,12 @@ def obtain_matrix(file_to_read: str) -> list:
     """
     with open(file_to_read, 'r', encoding="utf-8") as csv_file:
         original_csv_file = csv_file.readlines()
-        csv_file.seek(0) # Solo en caso de...
+        csv_file.seek(0) 
     for i, lista in enumerate(original_csv_file):
         original_csv_file[i] = lista.split(',')
         for j, elemento in enumerate(original_csv_file[i]):
             original_csv_file[i][j] = elemento.strip()
-            # Falta añadir alguna forma de que no se arruinen los ', ya
-            # que si yo ingreso "Child's Play" -> Child\'s Play.
+            
     return original_csv_file
 
 
@@ -39,17 +38,5 @@ def obtain_list(file_to_read: str, no_repeated_values = False,
 
 
 def list_strip_double_quotes(any_list: list) -> None:
-    """
-    ¡CUIDADO CON APLICAR ESTA FUNCIÓN SOBRE UNA LISTA QUE NO TENGA SOLO
-    STRINGS ENTRE SUS INDICES/VALORES!
-    Basicamente el map(func(), iterable) pero con .strip('\"').
-    """
     for i, elemento in enumerate(any_list):
         any_list[i] = elemento.strip('\"')
-
-
-
-
-
-
-obtain_list("generos.csv", True)

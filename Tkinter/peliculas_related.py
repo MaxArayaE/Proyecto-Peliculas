@@ -19,7 +19,13 @@ def equal_movie_and_director_exists(list_to_validate: list) -> bool:
     return False
 
 
-def input_movie(title, director, genre, year, score, root) -> str:
+def input_movie(title: str, director: str, genre: str, year: str, score: str,
+    root: str) -> str:
+    """
+    Esta función recibe el título, género, año, valoración y la ventana  
+    del tkinter. Luego hace las validaciones de cada uno, si estas son 
+    correctas retorna un string de estas separados por una coma.
+    """
     entry_error = tk.Toplevel(root)
     entry_error.geometry("500x100")
     entry_error.title("Error!")
@@ -28,11 +34,7 @@ def input_movie(title, director, genre, year, score, root) -> str:
     list_to_validate = []
     genres_list = obtain_list("generos.csv", True)
     for i in range(len(genres_list)):
-        genres_list[i] = genres_list[i].lower()
-    print(genres_list)
-        
-
-    
+        genres_list[i] = genres_list[i].lower()  
     list_to_validate = [f'"{title}"', f'"{director}"']
     genre_aux = f'"{genre.lower()}"'
     if genre_aux not in genres_list:
@@ -58,18 +60,14 @@ def input_movie(title, director, genre, year, score, root) -> str:
             font=(None, 15)).pack(padx=10, pady=20)
             return ""
     except:
-        tk.Label(entry_error, text= ("La valoracion debe ser un número entero"),
+        tk.Label(entry_error, text= ("La valoración debe ser un número entero"),
             font=(None, 15)).pack(padx=10, pady=20)
         return "" 
     if (equal_movie_and_director_exists(list_to_validate)):
-        tk.Label(entry_error, text= "El par de películas y director ya están",
+        tk.Label(entry_error, text= "La película con el director ingresado\n ya"
+             " están en la base de datos",
         font=(None, 20)).pack(padx=10, pady=20)
         return ""
-    
-
-   
-    
-    
     entry_error.title("Omedeto")
     tk.Label(entry_error, text= ("Su película se a ingresado\n correctamente"),
         font=(None, 15)).pack(padx=10, pady=20)
@@ -77,9 +75,3 @@ def input_movie(title, director, genre, year, score, root) -> str:
     all_user_input = f'"{title}", "{director}", "{genre}", {year}, {score}'
 
     return all_user_input
-
-
-# La verdad este código me deja medio esceptico, siento que si bien ayuda en
-# que se puedan añadir aun más preguntas en un futuro, no es demasiado optimo
-# y hace muchas validaciones totalmente innecesarias al estar entero dentro de
-# un for.

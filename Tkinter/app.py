@@ -1,12 +1,16 @@
 import tkinter as tk
 from tkinter import ttk
 from funciones import crea_lista_archivo
-from peliculas_related import *
 from main_peliculas import *
+from main_generos import *
+from generos_related import *
 import sys
 
 
 def root_generator():
+    """
+    Crea una ventana y la retorna
+    """
     root = tk.Toplevel()
     root.geometry("1080x720") # Tamaño de la ventana
     root.config(bg="pink")
@@ -17,11 +21,20 @@ def root_generator():
 
 
 def close(event=None):
+    """
+    Cierra la aplicación
+    """
     sys.exit()
 
 
 def movies_menu(root_main):
+    """
+    Muestra las casillas para ingresar los datos de la películas
+    """
     def temp_title(event):
+        """
+        Muestra un texto temporal en el entry 
+        """
         if event.type == tk.EventType.FocusIn and title_entry.get() == temp_title_text:
             title_entry.delete(0, "end")
             title_entry.config(fg="black")
@@ -32,6 +45,9 @@ def movies_menu(root_main):
 
 
     def temp_director(event):
+        """
+        Muestra un texto temporal en el entry 
+        """
         if event.type == tk.EventType.FocusIn and director_entry.get() == temp_director_text:
             director_entry.delete(0, "end")
             director_entry.config(fg="black")
@@ -42,6 +58,9 @@ def movies_menu(root_main):
 
 
     def temp_genre(event):
+        """
+        Muestra un texto temporal en el entry 
+        """
         if event.type == tk.EventType.FocusIn and genre_entry.get() == temp_genre_text:
             genre_entry.delete(0, "end")
             genre_entry.config(fg="black")
@@ -52,6 +71,9 @@ def movies_menu(root_main):
 
 
     def temp_year(event):
+        """
+        Muestra un texto temporal en el entry 
+        """
         if event.type == tk.EventType.FocusIn and year_entry.get() == temp_year_text:
             year_entry.delete(0, "end")
             year_entry.config(fg="black")
@@ -62,6 +84,9 @@ def movies_menu(root_main):
 
 
     def temp_score(event):
+        """
+        Muestra un texto temporal en el entry 
+        """
         if event.type == tk.EventType.FocusIn and score_entry.get() == temp_score_text:
             score_entry.delete(0, "end")
             score_entry.config(fg="black")
@@ -72,11 +97,19 @@ def movies_menu(root_main):
 
 
     def back_main(event):
+        """
+        Vuelve al menu principal
+        """
         root_main.deiconify()
         root.destroy()
 
 
     def confirmar(event):
+        """
+        Valida si se ingreso texto en todas las casillas, si es así, 
+        llama a la función main_peliculas() e ingresa la pelicula 
+        si es que pasa todos los filtros de la función   
+        """
         if (title_entry.get() != "" and not title_entry.get().isspace() and
             title_entry.get() != temp_title_text
             and director_entry.get() != "" and
@@ -102,6 +135,9 @@ def movies_menu(root_main):
 
 
     def in_button1(event):
+        """
+        Oscurecer el boton al pasar el mouse encima 
+        """
         if event.type == tk.EventType.Enter:
             button1.config(bg="grey")
         else:
@@ -109,10 +145,13 @@ def movies_menu(root_main):
 
 
     def in_button2(event):
+        """
+        Oscurecer el boton al pasar el mouse encima 
+        """
         if event.type == tk.EventType.Enter:
             button2.config(bg="grey")
         else:
-             button2.config(bg="grey90")
+            button2.config(bg="grey90")
 
 
     root = root_generator()
@@ -136,7 +175,7 @@ def movies_menu(root_main):
     director_entry.insert(0, temp_director_text)
 
     # Genero
-    genre_comentary = tk.Label(
+    tk.Label(
         root, text="*El genero debe estar en la base de datos", 
         font=(None, 10),fg="Black", bg="pink"
         ).grid(row=5, column=1, columnspan=4, sticky= "sw",)
@@ -146,7 +185,7 @@ def movies_menu(root_main):
     genre_entry.insert(0, temp_genre_text)
 
     # Año
-    year_comentary = tk.Label(
+    tk.Label(
         root, text="*El año debe ser mayor o igual a 1895 ", font=(None, 10),
         fg="Black", bg="pink"
         ).grid(row=7, column=1, columnspan=4, sticky= "sw",)
@@ -157,7 +196,7 @@ def movies_menu(root_main):
     year_entry.insert(0, temp_year_text)
    
     # Valoracion
-    score_comentary = tk.Label(
+    tk.Label(
         root, text="*La valoración debe ser entre 1 y 5", font=(None, 10),
         fg="Black", bg="pink"
         ).grid(row=7, column=6, columnspan=4, sticky= "sw",)
@@ -202,10 +241,18 @@ def movies_menu(root_main):
 
 
 def genres_menu(root_main):
+    """
+    Muestra las casillas para ingresar los generos y ademas imprime la 
+    lista de estos 
+    """
 
 
     def temp_genre(event):
-        if event.type == tk.EventType.FocusIn and genre_entry.get() == temp_genre_text:
+        """
+        Muestra un texto temporal en la casilla
+        """
+        if (event.type == tk.EventType.FocusIn and
+        genre_entry.get() == temp_genre_text):
             genre_entry.delete(0, "end")
             genre_entry.config(fg="black")
         if event.type == tk.EventType.FocusOut:
@@ -214,22 +261,32 @@ def genres_menu(root_main):
                 genre_entry.insert(0, temp_genre_text)
 
 
-    def temp_year(event):
-        if event.type == tk.EventType.FocusIn and year_entry.get() == temp_year_text:
-            year_entry.delete(0, "end")
-            year_entry.config(fg="black")
+    def temp_genre_father(event):
+        """
+        Muestra un texto temporal en la casilla
+        """
+        if (event.type == tk.EventType.FocusIn and
+        genre_father_entry.get() == temp_genre_father_text):
+            genre_father_entry.delete(0, "end")
+            genre_father_entry.config(fg="black")
         if event.type == tk.EventType.FocusOut:
-            if year_entry.get() == "":
-                year_entry.config(fg="gray")
-                year_entry.insert(0, temp_year_text)
+            if genre_father_entry.get() == "":
+                genre_father_entry.config(fg="gray")
+                genre_father_entry.insert(0, temp_genre_father_text)
 
 
     def back_main(event):
+        """
+        Volver al menu principal
+        """
         root_main.deiconify()
         root.destroy()
 
 
     def in_button1(event):
+        """
+        Oscurece el boton al pasar el mouse por encima
+        """
         if event.type == tk.EventType.Enter:
             button1.config(bg="grey")
         else:
@@ -237,11 +294,47 @@ def genres_menu(root_main):
 
 
     def in_button2(event):
+        """
+        Oscurece el boton al pasar el mouse por encima
+        """
         if event.type == tk.EventType.Enter:
             button2.config(bg="grey")
         else:
              button2.config(bg="grey90")
 
+
+    def confirmar(event):
+        """
+        Valida si se ingreso texto en todas las casillas, si es así, 
+        llama a la función main_generos() e ingresa el género  
+        si es que pasa todos los filtros de la función
+        """
+        if (genre_entry.get() != "" and not genre_entry.get().isspace() and
+            genre_entry.get() != temp_genre_text):
+            if (genre_father_entry.get().isspace() or 
+            genre_father_entry.get() == "" or
+            genre_father_entry.get() == temp_genre_father_text):
+                main_generos(genre_entry.get(), "", root)
+            else:
+                main_generos(genre_entry.get(), genre_father_entry.get(), root)
+        else:
+            entry_error = tk.Toplevel(root) 
+            entry_error.geometry("500x100")
+            entry_error.title("Error!")
+            tk.Label(entry_error, text= "Ingrese un género válido",
+            font=(None, 15)).pack(padx=10, pady=20)
+
+
+    def recursive_print(matrix: list, genre_to_print: str,
+                        tab_depth = 1) -> None:
+        for genre in matrix:
+            if (genre[1] == genre_to_print):
+                aux = genre[0].strip('\"')
+                aux_tab = "\t" * tab_depth
+                text_area.insert(tk.END, f"{aux_tab + aux}\n")
+                recursive_print(matrix, genre[0], tab_depth + 1)
+                
+        
 
     # Título pestaña
     root = root_generator()
@@ -252,20 +345,23 @@ def genres_menu(root_main):
     tk.Label(root, text="Ingresar Géneros", font=(None, 30), bg="pink",
     ).grid(row=0, column=3, columnspan=5, sticky="new")
     
-    # Título
-    frame_movie = tk.Frame(root, bd="3", relief="groove")
-    frame_movie.grid(row=2, column=2, columnspan=7, rowspan=1, sticky="nsew")
-    scroll_v = tk.Scrollbar(frame_movie)
+    # Lista de generos
+    frame_genre = tk.Frame(root, bd="3", relief="groove")
+    frame_genre.grid(row=2, column=2, columnspan=7, rowspan=1, sticky="nsew")
+    scroll_v = tk.Scrollbar(frame_genre)
     scroll_v.pack(side="right", fill="y")
     text_area = tk.Text(
-        frame_movie, wrape=None, yscrollcommand=scroll_v.set,
-        font=(None, 20), height=10
+        frame_genre, wrape=None, yscrollcommand=scroll_v.set,
+        font=(None, 15), height=10
     )
-                #text_area.insert(tk.END, movies_text)
     text_area.pack(side="top", fill="x")
     scroll_v.config(command=text_area.yview)
-    text_area.config(state="disabled")
+    text_area.config(state="normal")
 
+    matrix = obtain_matrix("generos.csv")
+    text_area.insert(tk.END, "General\n")     
+    
+    recursive_print(matrix, "\"General\"")
 
     # Genero
     genre_entry = tk.Entry(root, width=50, font=(None, 25), fg="gray")
@@ -274,15 +370,14 @@ def genres_menu(root_main):
     genre_entry.insert(0, temp_genre_text)
 
     # Genero Padre
-    genre_comentary2 = tk.Label(root, text="*Si no especifica género padre, se"
+    tk.Label(root, text="*Si no especifica género padre, se"
         " asignará automaticamente en general", font=(None, 10),fg="Black",
         bg="pink").grid(row=8, column=2, columnspan=4, sticky= "nw",)
-    year_entry = tk.Entry(root, width=50, font=(None, 25), fg="gray")
-    year_entry.grid(row=7, column=2, columnspan=7, rowspan=1, sticky="w")
-    temp_year_text = "(opcional) Ingrese el Género Padre"
-    year_entry.insert(0, temp_year_text)
-
-
+    genre_father_entry = tk.Entry(root, width=50, font=(None, 25), fg="gray")
+    genre_father_entry.grid(row=7, column=2, columnspan=7, rowspan=1, sticky="w")
+    temp_genre_father_text = "(opcional) Ingrese el Género Padre"
+    genre_father_entry.insert(0, temp_genre_father_text)
+    
     #  Botones
     button1 = tk.Button(root, text="Volver atrás", cursor="hand1", height=2)
     button1.grid(row=9, column=1, columnspan=2, sticky="sew")
@@ -290,18 +385,18 @@ def genres_menu(root_main):
     button2.grid(row=9, column=8, columnspan= 2, sticky="sew")
 
     # Eventos
-
     genre_entry.bind("<FocusIn>", temp_genre)
     genre_entry.bind("<FocusOut>", temp_genre)
 
-    year_entry.bind("<FocusIn>", temp_year)
-    year_entry.bind("<FocusOut>", temp_year)
+    genre_father_entry.bind("<FocusIn>", temp_genre_father)
+    genre_father_entry.bind("<FocusOut>", temp_genre_father)
 
     button1.bind("<Button-1>", back_main)
     button1.bind("<Enter>", in_button1)
     button1.bind("<Leave>", in_button1)
     button2.bind("<Enter>", in_button2)
     button2.bind("<Leave>", in_button2)
+    button2.bind("<Button-1>", confirmar)
 
     root.bind("<Escape>", close)
     root.protocol("WM_DELETE_WINDOW", close)
@@ -310,13 +405,20 @@ def genres_menu(root_main):
 
 
 def list_menu(root_main):
-    
-    
+    """
+    Muestra la lista de peliculas  
+    """
     def back_main(event):
+        """
+        Vuelve al menu  principal 
+        """
         root_main.deiconify()
         root.destroy()
 
     def buscador_peliculas(event):
+        """
+        Busca pelicula según el filtro seleccionado  
+        """
         texto_buscado = buscador.get().lower()
         if (texto_buscado != "" and not texto_buscado.isspace()
             and buscador_combo.get() != combo_normal):
@@ -335,7 +437,6 @@ def list_menu(root_main):
                         text_area.insert(tk.END, f"{', '.join(i)}\n")
             elif buscador_combo.get() == combo_score:
                 for i in movies_list:
-                    print(i)
                     if (i[4].find(texto_buscado) != -1 and
                         texto_buscado != "" and not texto_buscado.isspace()):
                         text_area.insert(tk.END, f"{', '.join(i)}\n")
@@ -345,8 +446,6 @@ def list_menu(root_main):
             text_area.delete(1.0, tk.END)
             for i in movies_list:
                 text_area.insert(tk.END, f"{', '.join(i)}\n")
-
-    movies_list_formated = crea_lista_archivo("peliculas.csv", ",")
     movies_list = crea_lista_archivo("peliculas.csv", ",")
 
     root = root_generator()
@@ -391,7 +490,6 @@ def list_menu(root_main):
     for i in movies_list:
         text_area.insert(tk.END, f"{', '.join(i)}\n")
     
-    #text_area.insert(tk.END, movies_list_formated)
     text_area.pack(side="top", fill="x")
     scroll_v.config(command=text_area.yview)
     text_area.config(state="disabled")
@@ -406,11 +504,13 @@ def list_menu(root_main):
     
     root.mainloop()
 
+
 def main():
-
-
+    """
+    Crea la ventana principal de la aplicación y muesta los botones 
+    correspondientes junto a la imagen y el título
+    """
     def genres_window(event):
-        #root.destroy()
         genres_menu(root)
     
 
@@ -423,6 +523,9 @@ def main():
 
 
     def in_button1(event):
+        """
+        Oscurece el boton al pasar el mouse por encima
+        """
         if event.type == tk.EventType.Enter:
             button1.config(bg="grey")
         else:
@@ -430,6 +533,9 @@ def main():
 
 
     def in_button2(event):
+        """
+        Oscurece el boton al pasar el mouse por encima
+        """
         if event.type == tk.EventType.Enter:
             button2.config(bg="grey")
         else:
@@ -437,6 +543,9 @@ def main():
 
  
     def in_button3(event):
+        """
+        Oscurece el boton al pasar el mouse por encima
+        """
         if event.type == tk.EventType.Enter:
             button3.config(bg="grey")
         else:
@@ -500,9 +609,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-"""
-5. Ingresar generos 
-6. Imprimir generos
- """
